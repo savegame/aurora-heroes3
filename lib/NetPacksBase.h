@@ -9,6 +9,8 @@
  */
 #pragma once
 
+#include <variant>
+
 #include <vcmi/Metatype.h>
 
 #include "ConstTransitivePtr.h"

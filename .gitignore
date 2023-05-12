@@ -3,7 +3,7 @@
 /launcher/vcmilauncher
 /launcher/vcmilauncher_automoc.cpp
 /conan-*
-
+build_*/
 build/
 .cache/*
 out/

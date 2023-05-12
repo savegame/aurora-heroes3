@@ -14,6 +14,7 @@
 #include "CArtifactsOfHeroKingdom.h"
 #include "CArtifactsOfHeroAltar.h"
 #include "CArtifactsOfHeroMarket.h"
+#include <variant>
 
 class CWindowWithArtifacts : public CArtifactHolder
 {

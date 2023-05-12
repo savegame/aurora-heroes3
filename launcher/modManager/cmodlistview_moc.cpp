@@ -411,13 +411,20 @@ void CModListView::on_lineEdit_textChanged(const QString & arg1)
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 	auto baseStr = QRegularExpression::wildcardToRegularExpression(arg1, QRegularExpression::UnanchoredWildcardConversion);
 #else
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 	auto baseStr = QRegularExpression::wildcardToRegularExpression(arg1);
 	//Hack due to lack QRegularExpression::UnanchoredWildcardConversion in Qt5
 	baseStr.chop(3);
 	baseStr.remove(0,5);
 #endif
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+	// QRegExp regExp(arg1, QRegularExpression::CaseInsensitiveOption, QRegExp::Wildcard);
+	filterModel->setFilterWildcard(arg1);
+#else
 	QRegularExpression regExp{baseStr, QRegularExpression::CaseInsensitiveOption};
 	filterModel->setFilterRegularExpression(regExp);
+#endif
 }
 
 void CModListView::on_comboBox_currentIndexChanged(int index)
