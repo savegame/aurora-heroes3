@@ -67,7 +67,7 @@ static_assert(sizeof(bool) == 1, "Bool needs to be 1 byte in size.");
 #  error "This platform isn't supported"
 #endif
 
-#if defined(VCMI_ANDROID) || defined(VCMI_IOS)
+#if defined(VCMI_ANDROID) || defined(VCMI_IOS) || defined(VCMI_AURORAOS)
 #define VCMI_MOBILE
 #endif
 

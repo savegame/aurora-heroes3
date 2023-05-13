@@ -6,3 +6,9 @@
 	path = AI/FuzzyLite
 	url = https://github.com/fuzzylite/fuzzylite.git
 	branch = release
+[submodule "opencv"]
+	path = opencv
+	url = git@github.com:opencv/opencv.git
+[submodule "libtbb"]
+	path = libtbb
+	url = git@github.com:oneapi-src/oneTBB.git

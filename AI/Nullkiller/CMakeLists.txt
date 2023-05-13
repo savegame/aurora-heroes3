@@ -129,12 +129,19 @@ else()
 	install(TARGETS Nullkiller RUNTIME DESTINATION ${AI_LIB_DIR} LIBRARY DESTINATION ${AI_LIB_DIR})
 endif()
 
-target_include_directories(Nullkiller PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Nullkiller PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite TBB::tbb)
+if(AURORAOS)
+	target_include_directories(Nullkiller PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} 
+		${CMAKE_BINARY_DIR}/libtbb/include)
+	target_link_libraries(Nullkiller PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite TBB::tbb)
+else()
+	target_include_directories(Nullkiller PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+	target_link_libraries(Nullkiller PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite TBB::tbb)
+endif()
 
 vcmi_set_output_dir(Nullkiller "AI")
 enable_pch(Nullkiller)
 
 if(APPLE_IOS AND NOT USING_CONAN)
-	install(IMPORTED_RUNTIME_ARTIFACTS TBB::tbb LIBRARY DESTINATION ${LIB_DIR}) # CMake 3.21+
+	# install(IMPORTED_RUNTIME_ARTIFACTS TBB::tbb LIBRARY DESTINATION ${LIB_DIR}) # CMake 3.21+
+	install(IMPORTED_RUNTIME_ARTIFACTS LIBRARY DESTINATION ${LIB_DIR}) # CMake 3.21+
 endif()

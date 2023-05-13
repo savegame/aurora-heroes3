@@ -3,6 +3,17 @@
 [![Github Downloads](https://img.shields.io/github/downloads/vcmi/vcmi/1.2.1/total)](https://github.com/vcmi/vcmi/releases/tag/1.2.1)
 [![Github Downloads](https://img.shields.io/github/downloads/vcmi/vcmi/1.2.0/total)](https://github.com/vcmi/vcmi/releases/tag/1.2.0)
 [![Github Downloads](https://img.shields.io/github/downloads/vcmi/vcmi/total)](https://github.com/vcmi/vcmi/releases)
+
+# AuroraOS port by @sashikknox
+
+ * [sashikknox's boosty link, for donate](https://boosty.to/sashikknox/donate)
+- add libtbb as static builtin lib
+- fix cmake projects for AuroraOS build
+
+## Build for AuroraOS
+
+Start build inside build_engine in AuroraSDK with `-DAURORAOS` flag.
+
 # VCMI Project
 VCMI is work-in-progress attempt to recreate engine for Heroes III, giving it new and extended possibilities.
 

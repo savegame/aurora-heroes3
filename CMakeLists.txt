@@ -48,6 +48,21 @@ if(ANDROID)
 	set(singleProcess ON)
 endif()
 
+if(AURORAOS)
+	set(ENABLE_NULLKILLER_AI ON)
+	set(ENABLE_EDITOR OFF)
+	set(ENABLE_LAUNCHER OFF)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS")
+	set(singleProcess ON)
+	set(staticAI ON)
+
+	# build opencv
+	set(BUILD_SHARED_LIBS OFF)
+	set(TBB_TEST OFF)
+	set(TBB_EXAMPLES OFF)
+	add_subdirectory(libtbb)
+endif()
+
 option(ENABLE_ERM "Enable compilation of ERM scripting module" OFF)
 option(ENABLE_LUA "Enable compilation of LUA scripting module" OFF)
 if(NOT ANDROID)
@@ -428,7 +443,7 @@ if(ENABLE_LAUNCHER OR ENABLE_EDITOR)
 	endif()
 endif()
 
-if(ENABLE_NULLKILLER_AI)
+if(ENABLE_NULLKILLER_AI AND NOT AURORAOS) # in AuroraOS we build tbb statically
 	find_package(TBB REQUIRED)
 endif()
 

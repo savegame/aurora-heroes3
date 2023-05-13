@@ -152,7 +152,7 @@ static void SDLLogCallback(void*           userdata,
 
 #if defined(VCMI_WINDOWS) && !defined(__GNUC__) && defined(VCMI_WITH_DEBUG_CONSOLE)
 int wmain(int argc, wchar_t* argv[])
-#elif defined(VCMI_MOBILE)
+#elif defined(VCMI_MOBILE) && !defined(VCMI_AURORAOS)
 int SDL_main(int argc, char *argv[])
 #else
 int main(int argc, char * argv[])
@@ -164,7 +164,7 @@ int main(int argc, char * argv[])
 	setenv("LANG", "C", 1);
 #endif
 
-#if !defined(VCMI_MOBILE)
+#if !defined(VCMI_MOBILE) && !defined(VCMI_AURORAOS)
 	// Correct working dir executable folder (not bundle folder) so we can use executable relative paths
 	boost::filesystem::current_path(boost::filesystem::system_complete(argv[0]).parent_path());
 #endif
@@ -580,7 +580,7 @@ void playIntro()
 	}
 }
 
-#if !defined(VCMI_MOBILE)
+#if !defined(VCMI_MOBILE) || defined(VCMI_AURORAOS)
 static bool checkVideoMode(int monitorIndex, int w, int h)
 {
 	//we only check that our desired window size fits on screen
@@ -707,7 +707,7 @@ static bool recreateWindow(int w, int h, int bpp, bool fullscreen, int displayIn
 
 	if(nullptr == mainWindow)
 	{
-#if defined(VCMI_MOBILE)
+#if defined(VCMI_MOBILE) && !defined(VCMI_AURORAOS)
 		auto createWindow = [displayIndex](uint32_t extraFlags) -> bool {
 			mainWindow = SDL_CreateWindow(NAME.c_str(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex), SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex), 0, 0, SDL_WINDOW_FULLSCREEN | extraFlags);
 			return mainWindow != nullptr;
@@ -758,6 +758,11 @@ static bool recreateWindow(int w, int h, int bpp, bool fullscreen, int displayIn
 			logGlobal->error("Can't fix aspect ratio for screen");
 		}
 #else
+
+#if defined(VCMI_AURORAOS)
+		fullscreen = true;
+		realFullscreen = false;
+#endif
 		if(fullscreen)
 		{
 			if(realFullscreen)
@@ -928,7 +933,7 @@ static void handleEvent(SDL_Event & ev)
 {
 	if((ev.type==SDL_QUIT) ||(ev.type == SDL_KEYDOWN && ev.key.keysym.sym==SDLK_F4 && (ev.key.keysym.mod & KMOD_ALT)))
 	{
-#ifdef VCMI_ANDROID
+#if defined(VCMI_ANDROID) || defined(VCMI_AURORAOS)
 		handleQuit(false);
 #else
 		handleQuit();
