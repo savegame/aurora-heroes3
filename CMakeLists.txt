@@ -49,14 +49,24 @@ if(ANDROID)
 endif()
 
 if(AURORAOS)
+	if(NOT AURORAOS_APPNAME)
+		set(AURORAOS_APPNAME ru.sashikknox.hmm3)
+	endif()
+	set(BIN_DIR "/usr/bin")
+	set(LIB_DIR "/usr/share/${AURORAOS_APPNAME}/lib")
+	set(DATA_DIR "/usr/share/${AURORAOS_APPNAME}")
+
 	set(ENABLE_NULLKILLER_AI ON)
 	set(ENABLE_EDITOR OFF)
 	set(ENABLE_LAUNCHER OFF)
+	# set(ENABLE_MONOLITHIC_INSTALL ON)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS_ORGNAME=\\\"ru.sashikknox\\\"")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS_APPNAME=\\\"hmm3\\\"")
 	set(singleProcess ON)
-	set(staticAI ON)
+	set(staticAI OFF)
 
-	# build opencv
+	# build libtbb
 	set(BUILD_SHARED_LIBS OFF)
 	set(TBB_TEST OFF)
 	set(TBB_EXAMPLES OFF)
@@ -631,7 +641,7 @@ if(ENABLE_LUA)
 endif()
 
 # that script is useless for Windows / iOS / Android
-if(NOT WIN32 AND NOT APPLE_IOS AND NOT ANDROID)
+if(NOT WIN32 AND NOT APPLE_IOS AND NOT ANDROID AND NOT AURORAOS)
 	install(FILES vcmibuilder DESTINATION ${BIN_DIR} PERMISSIONS
 		OWNER_WRITE OWNER_READ OWNER_EXECUTE
 					GROUP_READ GROUP_EXECUTE
