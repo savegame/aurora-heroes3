@@ -282,30 +282,36 @@ endif()
 
 assign_source_group(${client_SRCS} ${client_HEADERS} VCMI_client.rc)
 
-if(ANDROID)
-	add_library(vcmiclient SHARED ${client_SRCS} ${client_HEADERS})
-else()
-	add_executable(vcmiclient ${client_SRCS} ${client_HEADERS})
+set(VCMICLIENT_NAME vcmiclient)
+
+if(AURORAOS)
+	set(VCMICLIENT_NAME ${AURORAOS_APPNAME})
 endif()
 
-add_dependencies(vcmiclient vcmiserver)
+if(ANDROID)
+	add_library(${VCMICLIENT_NAME} SHARED ${client_SRCS} ${client_HEADERS})
+else()
+	add_executable(${VCMICLIENT_NAME} ${client_SRCS} ${client_HEADERS})
+endif()
+
+add_dependencies(${VCMICLIENT_NAME} vcmiserver)
 if(NOT ENABLE_STATIC_AI_LIBS)
-	add_dependencies(vcmiclient
+	add_dependencies(${VCMICLIENT_NAME}
 		BattleAI
 		EmptyAI
 		StupidAI
 		VCAI
 	)
 	if(ENABLE_NULLKILLER_AI)
-		add_dependencies(vcmiclient Nullkiller)
+		add_dependencies(${VCMICLIENT_NAME} Nullkiller)
 	endif()
 endif()
 if(APPLE_IOS)
 	if(ENABLE_ERM)
-		add_dependencies(vcmiclient vcmiERM)
+		add_dependencies(${VCMICLIENT_NAME} vcmiERM)
 	endif()
 	if(ENABLE_LUA)
-		add_dependencies(vcmiclient vcmiLua)
+		add_dependencies(${VCMICLIENT_NAME} vcmiLua)
 	endif()
 endif()
 
@@ -367,35 +373,35 @@ elseif(APPLE_IOS)
 endif()
 
 if(ENABLE_SINGLE_APP_BUILD)
-	target_link_libraries(vcmiclient PRIVATE vcmiserver)
+	target_link_libraries(${VCMICLIENT_NAME} PRIVATE vcmiserver)
 	if(ENABLE_LAUNCHER)
-		target_link_libraries(vcmiclient PRIVATE vcmilauncher)
+		target_link_libraries(${VCMICLIENT_NAME} PRIVATE vcmilauncher)
 	endif()
 endif()
-target_link_libraries(vcmiclient PRIVATE
+target_link_libraries(${VCMICLIENT_NAME} PRIVATE
 		${VCMI_LIB_TARGET} SDL2::SDL2 SDL2::Image SDL2::Mixer SDL2::TTF
 )
 
 if(ffmpeg_LIBRARIES)
-	target_link_libraries(vcmiclient PRIVATE
+	target_link_libraries(${VCMICLIENT_NAME} PRIVATE
 		${ffmpeg_LIBRARIES}
 	)
 else()
-	target_compile_definitions(vcmiclient PRIVATE DISABLE_VIDEO)
+	target_compile_definitions(${VCMICLIENT_NAME} PRIVATE DISABLE_VIDEO)
 endif()
 
-target_include_directories(vcmiclient PUBLIC
+target_include_directories(${VCMICLIENT_NAME} PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 if (ffmpeg_INCLUDE_DIRS)
-	target_include_directories(vcmiclient PRIVATE
+	target_include_directories(${VCMICLIENT_NAME} PRIVATE
 		${ffmpeg_INCLUDE_DIRS}
 	)
 endif()
 
-vcmi_set_output_dir(vcmiclient "")
-enable_pch(vcmiclient)
+vcmi_set_output_dir(${VCMICLIENT_NAME} "")
+enable_pch(${VCMICLIENT_NAME})
 
 if(APPLE_IOS)
 	vcmi_install_conan_deps("\${CMAKE_INSTALL_PREFIX}")
@@ -414,7 +420,7 @@ elseif(ANDROID)
 	)
 	install(TARGETS vcmiclient DESTINATION ${LIB_DIR})
 else()
-	install(TARGETS vcmiclient DESTINATION ${BIN_DIR})
+	install(TARGETS ${VCMICLIENT_NAME} DESTINATION ${BIN_DIR})
 endif()
 
 #install icons and desktop file on Linux

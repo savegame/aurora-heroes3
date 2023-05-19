@@ -17,9 +17,16 @@
 #include "CAndroidVMHelper.h"
 #endif
 
+namespace bfs = boost::filesystem;
+
+#if defined(VCMI_AURORAOS_ORGNAME) && defined(VCMI_AURORAOS_APPNAME)
+#define VCMI_APP_CONF_DIR bfs::path(VCMI_AURORAOS_ORGNAME) / VCMI_AURORAOS_APPNAME
+#else 
+#define VCMI_APP_CONF_DIR "vcmi"
+#endif
+
 VCMI_LIB_NAMESPACE_BEGIN
 
-namespace bfs = boost::filesystem;
 
 bfs::path IVCMIDirs::userLogsPath() const { return userCachePath(); }
 
@@ -603,9 +610,9 @@ bfs::path VCMIDirsXDG::userDataPath() const
 	// $XDG_DATA_HOME, default: $HOME/.local/share
 	const char* homeDir;
 	if((homeDir = getenv("XDG_DATA_HOME")))
-		return bfs::path(homeDir) / "vcmi";
+		return bfs::path(homeDir) / VCMI_APP_CONF_DIR;
 	else if((homeDir = getenv("HOME")))
-		return bfs::path(homeDir) / ".local" / "share" / "vcmi";
+		return bfs::path(homeDir) / ".local" / "share" / VCMI_APP_CONF_DIR;
 	else
 		return ".";
 }
@@ -614,9 +621,9 @@ bfs::path VCMIDirsXDG::userCachePath() const
 	// $XDG_CACHE_HOME, default: $HOME/.cache
 	const char * tempResult;
 	if ((tempResult = getenv("XDG_CACHE_HOME")))
-		return bfs::path(tempResult) / "vcmi";
+		return bfs::path(tempResult) / VCMI_APP_CONF_DIR;
 	else if ((tempResult = getenv("HOME")))
-		return bfs::path(tempResult) / ".cache" / "vcmi";
+		return bfs::path(tempResult) / ".cache" / VCMI_APP_CONF_DIR;
 	else
 		return ".";
 }
@@ -625,11 +632,11 @@ bfs::path VCMIDirsXDG::userConfigPath() const
 	// $XDG_CONFIG_HOME, default: $HOME/.config
 	const char * tempResult = getenv("XDG_CONFIG_HOME");
 	if (tempResult)
-		return bfs::path(tempResult) / "vcmi";
+		return bfs::path(tempResult) / VCMI_APP_CONF_DIR;
 	
 	tempResult = getenv("HOME");
 	if (tempResult)
-		return bfs::path(tempResult) / ".config" / "vcmi";
+		return bfs::path(tempResult) / ".config" / VCMI_APP_CONF_DIR;
 
 	return ".";
 }
@@ -650,6 +657,18 @@ std::vector<bfs::path> VCMIDirsXDG::dataPaths() const
 	}
 	else
 	{
+
+#if defined(VCMI_AURORAOS_ORGNAME) && defined(VCMI_AURORAOS_APPNAME)
+		const char *home_dir = getenv("XDG_DATA_HOME");
+		if(home_dir == nullptr)
+		{
+			home_dir = getenv("HOME");
+		}
+		if(home_dir != nullptr)
+		{
+			ret.push_back(bfs::path(home_dir) / bfs::path(VCMI_AURORAOS_ORGNAME) / VCMI_AURORAOS_APPNAME);
+		}
+#endif
 		ret.emplace_back(M_DATA_DIR);
 		const char * tempResult;
 		if((tempResult = getenv("XDG_DATA_DIRS")) != nullptr)

@@ -150,7 +150,16 @@ ISimpleResourceLoader * CResourceHandler::createInitial()
 			initialLoader->addLoader(new CFilesystemLoader("", path, 0, true), false);
 	}
 	initialLoader->addLoader(new CFilesystemLoader("", VCMIDirs::get().userDataPath(), 0, true), false);
+#ifdef VCMI_AURORAOS
 
+	{	
+		bfs::path aurora_path = bfs::path("/usr/share") / bfs::path(VCMI_AURORAOS_ORGNAME);
+		aurora_path += bfs::path(".");
+		aurora_path += VCMI_AURORAOS_APPNAME;
+		if (boost::filesystem::is_directory(aurora_path))
+			initialLoader->addLoader(new CFilesystemLoader("", aurora_path, 0, true), false);
+	}
+#endif
 	recurseInDir("CONFIG", 0);// look for configs
 	recurseInDir("DATA", 0); // look for archives
 	recurseInDir("MODS", 64); // look for mods.
