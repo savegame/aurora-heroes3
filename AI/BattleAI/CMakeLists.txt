@@ -37,7 +37,7 @@ else()
 endif()
 
 target_include_directories(BattleAI PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(BattleAI PRIVATE ${VCMI_LIB_TARGET})
+target_link_libraries(BattleAI PRIVATE ${VCMI_LIB_TARGET} -Wl,-rpath,${LIB_DIR})
 
 vcmi_set_output_dir(BattleAI "AI")
 enable_pch(BattleAI)

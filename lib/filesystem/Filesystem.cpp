@@ -151,11 +151,11 @@ ISimpleResourceLoader * CResourceHandler::createInitial()
 	}
 	initialLoader->addLoader(new CFilesystemLoader("", VCMIDirs::get().userDataPath(), 0, true), false);
 #ifdef VCMI_AURORAOS
-
 	{	
 		bfs::path aurora_path = bfs::path("/usr/share") / bfs::path(VCMI_AURORAOS_ORGNAME);
 		aurora_path += bfs::path(".");
 		aurora_path += VCMI_AURORAOS_APPNAME;
+		logGlobal->info("Add specific AuroraOS path: %s", aurora_path.c_str());
 		if (boost::filesystem::is_directory(aurora_path))
 			initialLoader->addLoader(new CFilesystemLoader("", aurora_path, 0, true), false);
 	}

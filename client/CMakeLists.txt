@@ -400,6 +400,11 @@ if (ffmpeg_INCLUDE_DIRS)
 	)
 endif()
 
+if (AURORAOS)
+	message("Add rpath to ${VCMICLIENT_NAME}: -Wl,-rpath,${LIB_DIR}")
+	target_link_libraries(${VCMICLIENT_NAME} PUBLIC -Wl,-rpath,${LIB_DIR})
+endif()
+
 vcmi_set_output_dir(${VCMICLIENT_NAME} "")
 enable_pch(${VCMICLIENT_NAME})
 

@@ -132,7 +132,7 @@ endif()
 if(AURORAOS)
 	target_include_directories(Nullkiller PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} 
 		${CMAKE_BINARY_DIR}/libtbb/include)
-	target_link_libraries(Nullkiller PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite TBB::tbb)
+	target_link_libraries(Nullkiller PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite TBB::tbb  -Wl,-rpath,${LIB_DIR})
 else()
 	target_include_directories(Nullkiller PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 	target_link_libraries(Nullkiller PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite TBB::tbb)

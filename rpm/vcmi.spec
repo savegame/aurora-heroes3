@@ -18,6 +18,8 @@ Name:				ru.sashikknox.hmm3
 Name:				vcmi
 %endif
 
+%define __provides_exclude_from ^(%{_datadir}/%{name}/lib/.*\\.so.*|%{_datadir}/%{name}/lib/AI/.*\\.so.*)$
+
 Version:			0.99
 Release:			1%{?dist}
 License:			GPLv2+
@@ -74,10 +76,14 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %if "0%{?auroraos}" != "0"
 cd %{build_dir}
+strip bin/%{name}
+strip bin/libvcmi.so
+for each in bin/AI/*; do strip $each; done
 %endif
 make DESTDIR=%{buildroot} install
 %if "0%{?auroraos}" != "0"
 # remove libtbb stuff
+strip %{buildroot}%{_bindir}/%{name}
 rm -fr %{buildroot}/usr/include
 rm -fr %{buildroot}/usr/share/doc
 rm -fr %{buildroot}/usr/lib

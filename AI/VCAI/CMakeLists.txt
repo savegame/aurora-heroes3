@@ -107,7 +107,7 @@ else()
 endif()
 
 target_include_directories(VCAI PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(VCAI PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite)
+target_link_libraries(VCAI PUBLIC ${VCMI_LIB_TARGET} fuzzylite::fuzzylite -Wl,-rpath,${LIB_DIR})
 
 vcmi_set_output_dir(VCAI "AI")
 enable_pch(VCAI)
