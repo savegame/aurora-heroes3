@@ -48,8 +48,8 @@ BuildRequires:		boost-thread >= 1.51
 BuildRequires:		boost-program-options >= 1.51
 BuildRequires:		boost-locale >= 1.51
 BuildRequires:		zlib-devel
-BuildRequires:		ffmpeg-devel
 %if "0%{?auroraos}" == "0"
+BuildRequires:		ffmpeg-devel
 BuildRequires:		ffmpeg-libs
 BuildRequires:		boost >= 1.51
 BuildRequires:		gcc-c++ >= 4.7.2

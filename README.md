@@ -11,8 +11,11 @@
 - fix cmake projects for AuroraOS build
 
 ## Build for AuroraOS
-
-Start build inside build_engine in AuroraSDK with `-DAURORAOS` flag.
+```
+~/AuroraOS/bin/sfdk engine exec mb2 -t AuroraOS-4.0.2.209-base-armv7hl build
+~/AuroraOS/bin/sfdk engine exec sb2 -t AuroraOS-4.0.2.209-base-armv7hl sign --key regular_key.pem  --cert regular_cert.pem ./RPMS/ru.sashikknox.hmm3-1.2.1-1.armv7hl.rpm 
+```
+   RPM package name and target name may be different, than above
 
 # VCMI Project
 VCMI is work-in-progress attempt to recreate engine for Heroes III, giving it new and extended possibilities.
