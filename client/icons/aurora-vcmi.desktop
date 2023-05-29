@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=VCMI Client
+X-Nemo-Application-Type=silica-qt5
 GenericName=Strategy Game Engine
 Comment=Open engine for Heroes of Might and Magic 3
 Icon=ru.sashikknox.hmm3
@@ -8,8 +8,9 @@ Exec=ru.sashikknox.hmm3
 Categories=Game;StrategyGame;
 Version=1.0
 Keywords=heroes;homm3;
+Name=VCMI Client
 
-[Sailjail]
+[X-Sailjail]
 Permissions=UserDirs;RemovableMedia;Internet;Audio
 OrganizationName=ru.sashikknox
 ApplicationName=hmm3

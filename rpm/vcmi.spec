@@ -1,4 +1,20 @@
-%define build_dir $RPM_BUILD_ROOT/build
+
+%if "0%{?auroraos}" != "0"
+Name:				ru.sashikknox.hmm3
+%else
+Name:				vcmi
+%endif
+
+# %define __provides_exclude_from ^(%{_datadir}/%{name}/lib/.*\\.so.*|%{_datadir}/%{name}/lib/AI/.*\\.so.*)$
+%define __requires_exclude ^libboost_.*\\.so.*|libicu.*|libminizip\\.so|libvcmi\\.so$
+
+Summary:			VCMI is an open-source project aiming to reimplement HoMM3 game engine, giving it new and extended possibilities.
+Version:			0.99
+Release:			1%{?dist}
+License:			GPLv2+
+Group:				Amusements/Games
+
+%define _unpackaged_files_terminate_build 0
 
 %ifarch armv7hl
 %global build_dir build_armv7hl
@@ -9,23 +25,6 @@
         %global build_dir build_x86
     %endif
 %endif
-
-Summary:			VCMI is an open-source project aiming to reimplement HoMM3 game engine, giving it new and extended possibilities.
-
-%if "0%{?auroraos}" != "0"
-Name:				ru.sashikknox.hmm3
-%else
-Name:				vcmi
-%endif
-
-%define __provides_exclude_from ^(%{_datadir}/%{name}/lib/.*\\.so.*|%{_datadir}/%{name}/lib/AI/.*\\.so.*)$
-
-Version:			0.99
-Release:			1%{?dist}
-License:			GPLv2+
-Group:				Amusements/Games
-
-%define _unpackaged_files_terminate_build 0
 
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
@@ -48,6 +47,7 @@ BuildRequires:		boost-thread >= 1.51
 BuildRequires:		boost-program-options >= 1.51
 BuildRequires:		boost-locale >= 1.51
 BuildRequires:		zlib-devel
+BuildRequires:		rsync
 %if "0%{?auroraos}" == "0"
 BuildRequires:		ffmpeg-devel
 BuildRequires:		ffmpeg-libs
@@ -75,18 +75,10 @@ make %{?_smp_mflags}
 %install
 rm -rf %{buildroot}
 %if "0%{?auroraos}" != "0"
-cd %{build_dir}
-strip bin/%{name}
-strip bin/libvcmi.so
-for each in bin/AI/*; do strip $each; done
-%endif
-make DESTDIR=%{buildroot} install
-%if "0%{?auroraos}" != "0"
-# remove libtbb stuff
-strip %{buildroot}%{_bindir}/%{name}
-rm -fr %{buildroot}/usr/include
-rm -fr %{buildroot}/usr/share/doc
-rm -fr %{buildroot}/usr/lib
+    cd %{build_dir}
+    /usr/bin/bash ../rpm/build_aurora.sh %{buildroot} %{name}
+%else 
+    make DESTDIR=%{buildroot} install
 %endif
 
 %files
