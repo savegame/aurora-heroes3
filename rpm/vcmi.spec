@@ -31,9 +31,7 @@ Group:				Amusements/Games
 #  wget https://github.com/vcmi/vcmi/archive/0.99.tar.gz
 #  tar -xzf 0.99.tar.gz vcmi-0.99-1
 Source:				vcmi-0.99-1.tar.gz
-
 URL:				http://forum.vcmi.eu/portal.php
-
 BuildRequires:		cmake
 BuildRequires:		SDL2-devel
 BuildRequires:		SDL2_image-devel
@@ -48,62 +46,32 @@ BuildRequires:		boost-program-options >= 1.51
 BuildRequires:		boost-locale >= 1.51
 BuildRequires:		zlib-devel
 BuildRequires:		rsync
-%if "0%{?auroraos}" == "0"
-BuildRequires:		ffmpeg-devel
-BuildRequires:		ffmpeg-libs
-BuildRequires:		boost >= 1.51
-BuildRequires:		gcc-c++ >= 4.7.2
-BuildRequires:		qt5-qtbase-devel
-%endif
 
 %description
 VCMI is an open-source project aiming to reimplement HoMM3 game engine, giving it new and extended possibilities.
 
 %prep
 %setup -q -n %{name}-%{version}-1
+# >> setup
+# << setup
 
 %build
-%if "0%{?auroraos}" != "0"
 mkdir -p %{build_dir}
 cd %{build_dir}
 cmake -DCMAKE_BUILD_TYPE=Relelese -DAURORAOS=ON -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_TEST=0 ..
-%else
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_TEST=0 ./
-%endif
 make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
-%if "0%{?auroraos}" != "0"
-    cd %{build_dir}
-    /usr/bin/bash ../rpm/build_aurora.sh %{buildroot} %{name}
-%else 
-    make DESTDIR=%{buildroot} install
-%endif
+cd %{build_dir}
+/usr/bin/bash ../rpm/build_aurora.sh %{buildroot} %{name}
+
 
 %files
-%if "0%{?auroraos}" != "0"
 %{_bindir}/%{name}
 %{_datadir}/%{name}/*
 %{_datadir}/applications/*
-%{_datadir}/icons/*
-%else
-%doc README.md license.txt AUTHORS ChangeLog
-%{_bindir}/vcmiclient
-%{_bindir}/vcmiserver
-%{_bindir}/vcmibuilder
-%{_bindir}/vcmilauncher
-%{_libdir}/%{name}/*
-
-%{_datadir}/%{name}/*
-%{_datadir}/applications/*
-%{_datadir}/icons/*
-%endif 
-
-%if "0%{?auroraos}" != "0"
-%post
-%{__ln_s} -f %{_libdir}/%{name}/libvcmi.so %{_libdir}/libvcmi.so
-%endif
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
 

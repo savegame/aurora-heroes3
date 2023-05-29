@@ -382,7 +382,7 @@ target_link_libraries(${VCMICLIENT_NAME} PRIVATE
 		${VCMI_LIB_TARGET} SDL2::SDL2 SDL2::Image SDL2::Mixer SDL2::TTF
 )
 
-if(ffmpeg_LIBRARIES)
+if(ffmpeg_LIBRARIES AND NOT AURORAOS)
 	target_link_libraries(${VCMICLIENT_NAME} PRIVATE
 		${ffmpeg_LIBRARIES}
 	)
@@ -394,15 +394,15 @@ target_include_directories(${VCMICLIENT_NAME} PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-if (ffmpeg_INCLUDE_DIRS)
+if (ffmpeg_INCLUDE_DIRS AND NOT AURORAOS)
 	target_include_directories(${VCMICLIENT_NAME} PRIVATE
 		${ffmpeg_INCLUDE_DIRS}
 	)
 endif()
 
 if (AURORAOS)
-	message("Add rpath to ${VCMICLIENT_NAME}: -Wl,-rpath,${LIB_DIR}")
-	target_link_libraries(${VCMICLIENT_NAME} PUBLIC -Wl,-rpath,${LIB_DIR})
+	message("Add rpath to ${VCMICLIENT_NAME}: ${LIB_DIR}")
+	set(CMAKE_INSTALL_RPATH ${LIB_DIR})
 endif()
 
 vcmi_set_output_dir(${VCMICLIENT_NAME} "")
