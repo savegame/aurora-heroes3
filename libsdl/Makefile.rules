@@ -1,0 +1,584 @@
+
+# Build rules for objects
+-include $(OBJECTS:.lo=.d)
+
+# Special dependency for SDL.c, since it depends on SDL_revision.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL.c: update-revision
+
+$(objects)/SDL.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_assert.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL_assert.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dataqueue.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL_dataqueue.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_error.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL_error.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hints.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL_hints.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_log.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/SDL_log.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_atomic.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/atomic/SDL_atomic.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_spinlock.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/atomic/SDL_spinlock.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_audio.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/SDL_audio.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_audiocvt.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/SDL_audiocvt.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_audiodev.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/SDL_audiodev.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_audiotypecvt.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/SDL_audiotypecvt.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_mixer.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/SDL_mixer.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_wave.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/SDL_wave.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_cpuinfo.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/cpuinfo/SDL_cpuinfo.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dynapi.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/dynapi/SDL_dynapi.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_clipboardevents.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_clipboardevents.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_displayevents.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_displayevents.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dropevents.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_dropevents.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_events.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_events.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_gesture.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_gesture.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_keyboard.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_keyboard.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_mouse.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_mouse.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_quit.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_quit.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_touch.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_touch.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_windowevents.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/events/SDL_windowevents.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_rwops.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/file/SDL_rwops.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_haptic.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/haptic/SDL_haptic.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_gamecontroller.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/SDL_gamecontroller.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_joystick.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/SDL_joystick.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_atan2.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_atan2.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_exp.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_exp.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_fmod.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_fmod.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_log.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_log.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_log10.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_log10.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_pow.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_pow.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_rem_pio2.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_rem_pio2.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/e_sqrt.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/e_sqrt.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/k_cos.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/k_cos.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/k_rem_pio2.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/k_rem_pio2.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/k_sin.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/k_sin.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/k_tan.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/k_tan.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_atan.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_atan.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_copysign.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_copysign.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_cos.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_cos.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_fabs.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_fabs.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_floor.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_floor.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_scalbn.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_scalbn.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_sin.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_sin.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/s_tan.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/libm/s_tan.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_power.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/power/SDL_power.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_d3dmath.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/SDL_d3dmath.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/SDL_render.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_yuv_sw.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/SDL_yuv_sw.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_d3d.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/direct3d/SDL_render_d3d.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_shaders_d3d.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/direct3d/SDL_shaders_d3d.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_d3d11.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/direct3d11/SDL_render_d3d11.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_shaders_d3d11.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/direct3d11/SDL_shaders_d3d11.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_gl.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/opengl/SDL_render_gl.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_shaders_gl.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/opengl/SDL_shaders_gl.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_gles.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/opengles/SDL_render_gles.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_gles2.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/opengles2/SDL_render_gles2.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_shaders_gles2.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/opengles2/SDL_shaders_gles2.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_psp.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/psp/SDL_render_psp.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blendfillrect.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_blendfillrect.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blendline.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_blendline.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blendpoint.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_blendpoint.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_drawline.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_drawline.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_drawpoint.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_drawpoint.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_render_sw.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_render_sw.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_rotate.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/render/software/SDL_rotate.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sensor.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/sensor/SDL_sensor.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_getenv.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_getenv.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_iconv.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_iconv.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_malloc.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_malloc.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_qsort.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_qsort.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_stdlib.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_stdlib.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_string.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_string.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_strtokr.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/stdlib/SDL_strtokr.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_thread.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/thread/SDL_thread.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_timer.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/timer/SDL_timer.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_RLEaccel.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_RLEaccel.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_0.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_0.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_1.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_1.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_A.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_A.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_N.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_N.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_auto.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_auto.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_copy.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_copy.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_blit_slow.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_blit_slow.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_bmp.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_bmp.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_clipboard.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_clipboard.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_egl.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_egl.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_fillrect.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_fillrect.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_pixels.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_pixels.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_rect.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_rect.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_shape.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_shape.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_stretch.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_stretch.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_surface.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_surface.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_video.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_video.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_vulkan_utils.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_vulkan_utils.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_yuv.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/SDL_yuv.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/yuv_rgb.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/yuv2rgb/yuv_rgb.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_nullevents.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/dummy/SDL_nullevents.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_nullframebuffer.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/dummy/SDL_nullframebuffer.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_nullvideo.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/dummy/SDL_nullvideo.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_diskaudio.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/disk/SDL_diskaudio.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dummyaudio.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/dummy/SDL_dummyaudio.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysloadso.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/loadso/dlopen/SDL_sysloadso.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/pixman-arm-simd-asm.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/arm/pixman-arm-simd-asm.S $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dspaudio.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/dsp/SDL_dspaudio.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_pulseaudio.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/audio/pulseaudio/SDL_pulseaudio.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandclipboard.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandclipboard.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylanddatamanager.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylanddatamanager.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylanddyn.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylanddyn.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandevents.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandevents.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandmouse.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandmouse.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandopengles.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandopengles.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandtouch.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandtouch.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandvideo.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandvideo.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandvulkan.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandvulkan.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_waylandwindow.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandwindow.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dbus.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/linux/SDL_dbus.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_ime.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/linux/SDL_ime.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_gamecube.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_gamecube.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_ps4.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_ps4.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_rumble.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_rumble.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_steam.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_steam.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_switch.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_switch.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_xbox360.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_xbox360.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_xbox360w.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_xbox360w.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi_xboxone.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapi_xboxone.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapijoystick.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/hidapi/SDL_hidapijoystick.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_hidapi.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/hidapi/SDL_hidapi.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_systhread.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/thread/pthread/SDL_systhread.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syssem.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/thread/pthread/SDL_syssem.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysmutex.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/thread/pthread/SDL_sysmutex.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syscond.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/thread/pthread/SDL_syscond.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_systls.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/thread/pthread/SDL_systls.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysjoystick.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/linux/SDL_sysjoystick.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_steamcontroller.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/joystick/steam/SDL_steamcontroller.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syshaptic.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/haptic/linux/SDL_syshaptic.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_syspower.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/power/linux/SDL_syspower.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_sysfilesystem.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/filesystem/unix/SDL_sysfilesystem.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_systimer.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/timer/unix/SDL_systimer.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_udev.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/linux/SDL_udev.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_evdev.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/linux/SDL_evdev.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_evdev_kbd.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/linux/SDL_evdev_kbd.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_threadprio.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/linux/SDL_threadprio.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_poll.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/core/unix/SDL_poll.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_dummysensor.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/sensor/dummy/SDL_dummysensor.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+
+$(objects)/SDL_dummy_main.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/main/dummy/SDL_dummy_main.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(objects)/SDL_test_assert.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_assert.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_common.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_common.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_compare.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_compare.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_crc32.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_crc32.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_font.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_font.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_fuzzer.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_fuzzer.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_harness.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_harness.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_imageBlit.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_imageBlit.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_imageBlitBlend.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_imageBlitBlend.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_imageFace.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_imageFace.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_imagePrimitives.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_imagePrimitives.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_imagePrimitivesBlend.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_imagePrimitivesBlend.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_log.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_log.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_md5.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_md5.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_memory.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_memory.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
+$(objects)/SDL_test_random.lo: /home/sashikknox/Projects/sailfish-quake2/SDL2/src/test/SDL_test_random.c $(objects)/.created
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h: $(srcdir)/wayland-protocols/org-kde-kwin-server-decoration-manager.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/org-kde-kwin-server-decoration-manager-protocol.c: $(srcdir)/wayland-protocols/org-kde-kwin-server-decoration-manager.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/org-kde-kwin-server-decoration-manager-protocol.lo: $(gen)/org-kde-kwin-server-decoration-manager-protocol.c $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/pointer-constraints-unstable-v1-client-protocol.h: $(srcdir)/wayland-protocols/pointer-constraints-unstable-v1.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/pointer-constraints-unstable-v1-protocol.c: $(srcdir)/wayland-protocols/pointer-constraints-unstable-v1.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/pointer-constraints-unstable-v1-protocol.lo: $(gen)/pointer-constraints-unstable-v1-protocol.c $(gen)/pointer-constraints-unstable-v1-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/relative-pointer-unstable-v1-client-protocol.h: $(srcdir)/wayland-protocols/relative-pointer-unstable-v1.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/relative-pointer-unstable-v1-protocol.c: $(srcdir)/wayland-protocols/relative-pointer-unstable-v1.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/relative-pointer-unstable-v1-protocol.lo: $(gen)/relative-pointer-unstable-v1-protocol.c $(gen)/relative-pointer-unstable-v1-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/wayland-client-protocol.h: $(srcdir)/wayland-protocols/wayland.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/wayland-protocol.c: $(srcdir)/wayland-protocols/wayland.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/wayland-protocol.lo: $(gen)/wayland-protocol.c $(gen)/wayland-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/xdg-decoration-unstable-v1-client-protocol.h: $(srcdir)/wayland-protocols/xdg-decoration-unstable-v1.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/xdg-decoration-unstable-v1-protocol.c: $(srcdir)/wayland-protocols/xdg-decoration-unstable-v1.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/xdg-decoration-unstable-v1-protocol.lo: $(gen)/xdg-decoration-unstable-v1-protocol.c $(gen)/xdg-decoration-unstable-v1-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/xdg-shell-unstable-v6-client-protocol.h: $(srcdir)/wayland-protocols/xdg-shell-unstable-v6.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/xdg-shell-unstable-v6-protocol.c: $(srcdir)/wayland-protocols/xdg-shell-unstable-v6.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/xdg-shell-unstable-v6-protocol.lo: $(gen)/xdg-shell-unstable-v6-protocol.c $(gen)/xdg-shell-unstable-v6-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+$(gen)/xdg-shell-client-protocol.h: $(srcdir)/wayland-protocols/xdg-shell.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) client-header $< $@
+
+$(gen)/xdg-shell-protocol.c: $(srcdir)/wayland-protocols/xdg-shell.xml
+	@$(SHELL) $(auxdir)/mkinstalldirs $(gen)
+	$(RUN_CMD_GEN)$(WAYLAND_SCANNER) code $< $@
+
+$(objects)/xdg-shell-protocol.lo: $(gen)/xdg-shell-protocol.c $(gen)/xdg-shell-client-protocol.h
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
+
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandclipboard.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylanddatamanager.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylanddyn.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandevents.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandmouse.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandopengles.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandtouch.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandvideo.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandvulkan.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
+/home/sashikknox/Projects/sailfish-quake2/SDL2/src/video/wayland/SDL_waylandwindow.c: $(gen)/org-kde-kwin-server-decoration-manager-client-protocol.h $(gen)/pointer-constraints-unstable-v1-client-protocol.h $(gen)/relative-pointer-unstable-v1-client-protocol.h $(gen)/wayland-client-protocol.h $(gen)/xdg-decoration-unstable-v1-client-protocol.h $(gen)/xdg-shell-unstable-v6-client-protocol.h $(gen)/xdg-shell-client-protocol.h
