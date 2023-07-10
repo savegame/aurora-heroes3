@@ -23,6 +23,10 @@
 #include "../lib/VCMIDirs.h"
 #include "../lib/TerrainHandler.h"
 
+#ifdef VCMI_AURORAOS
+#include <glib.h>
+static void on_audio_resource_acquired(audioresource_t *, bool, void *);
+#endif
 
 #define VCMI_SOUND_NAME(x)
 #define VCMI_SOUND_FILE(y) #y,
@@ -40,21 +44,49 @@ void CAudioBase::init()
 {
 	if (initialized)
 		return;
+#if !defined(DISABLE_LIBAUDIORESOURCE)
+	// initialize libaudioresource
+	audio_resource = audioresource_init(
+			AUDIO_RESOURCE_GAME,
+			on_audio_resource_acquired,
+			this);
+	audioresource_acquire(audio_resource);
 
+	logGlobal->info("Wait libaudioresource initialization ");
+	while (!is_audio_resource_acquired) {
+		g_main_context_iteration(NULL, false);
+	}
+#else
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024)==-1)
 	{
 		logGlobal->error("Mix_OpenAudio error: %s", Mix_GetError());
 		return;
 	}
+#endif
 
 	initialized = true;
 }
+
+#ifdef VCMI_AURORAOS
+void on_audio_resource_acquired(audioresource_t *, bool, void *audiobase) {
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024)==-1)
+	{
+		logGlobal->error("Mix_OpenAudio error: %s", Mix_GetError());
+		return;
+	}
+	logGlobal->info("libaudioresource was initialized.");
+	((CAudioBase*)audiobase)->is_audio_resource_acquired = true;
+}
+#endif
 
 void CAudioBase::release()
 {
 	if(!(CCS->soundh->initialized && CCS->musich->initialized))
 		Mix_CloseAudio();
-
+#ifdef VCMI_AURORAOS
+	audioresource_release(audio_resource);
+	audioresource_free(audio_resource);
+#endif
 	initialized = false;
 }
 

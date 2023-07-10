@@ -12,6 +12,10 @@
 #include "../lib/CConfigHandler.h"
 #include "../lib/CSoundBase.h"
 
+#if defined(VCMI_AURORAOS)
+#include <audioresource/audioresource.h>
+#endif
+
 struct _Mix_Music;
 struct SDL_RWops;
 using Mix_Music = struct _Mix_Music;
@@ -22,7 +26,11 @@ protected:
 	boost::mutex mutex;
 	bool initialized;
 	int volume;					// from 0 (mute) to 100
-
+#ifdef VCMI_AURORAOS
+	audioresource_t *audio_resource;
+public:
+	bool is_audio_resource_acquired = false;
+#endif
 public:
 	CAudioBase(): initialized(false), volume(0) {};
 	virtual void init() = 0;

@@ -49,6 +49,8 @@ if(ANDROID)
 endif()
 
 if(AURORAOS)
+	include(FindPkgConfig)
+	
 	if(NOT AURORAOS_APPNAME)
 		set(AURORAOS_APPNAME ru.sashikknox.hmm3)
 	endif()
@@ -58,14 +60,17 @@ if(AURORAOS)
 
 	set(ENABLE_NULLKILLER_AI ON)
 	set(ENABLE_EDITOR OFF)
-	set(ENABLE_LAUNCHER OFF)
+	if(NOT ENABLE_LAUNCHER)
+		set(ENABLE_LAUNCHER OFF)
+	endif()
+	set(ENABLE_TRANSLATIONS OFF)
 	set(FORCE_BUNDLED_MINIZIP ON)
 	set(ENABLE_TEST OFF)
 	# set(ENABLE_MONOLITHIC_INSTALL ON)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS_ORGNAME=\\\"ru.sashikknox\\\"")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS_APPNAME=\\\"hmm3\\\"")
-	set(ENABLE_SINGLE_APP_BUILD ON)
+	# set(ENABLE_SINGLE_APP_BUILD ON)
 	set(singleProcess ON)
 	set(staticAI OFF)
 
@@ -74,6 +79,17 @@ if(AURORAOS)
 	set(TBB_TEST OFF)
 	set(TBB_EXAMPLES OFF)
 	add_subdirectory(libtbb)
+
+	#build libSDL
+	message("Configure SDL2:")
+	set(LIB_SUFFIX "")
+	set(PULSEAUDIO ON)
+	set(SDL_STATIC ON)
+	set(VIDEO_WAYLAND ON)
+	set(VIDEO_X11 OFF)
+	set(WAYLAND_LIBDECOR OFF)
+	set(SDL_OSS OFF)
+	add_subdirectory(${CMAKE_SOURCE_DIR}/libsdl)
 endif()
 
 option(ENABLE_ERM "Enable compilation of ERM scripting module" OFF)
@@ -431,7 +447,27 @@ if(NOT FORCE_BUNDLED_MINIZIP)
 	endif()
 endif()
 
-find_package(SDL2 REQUIRED)
+if(AURORAOS)
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+		set(SDL2_CONFIG_INCLUDE_SUFFIX "debug")
+		set(SDL2_LIB_SUFFIX "d")
+	else()
+		set(SDL2_CONFIG_INCLUDE_SUFFIX "release")
+		set(SDL2_LIB_SUFFIX "")
+	endif()
+	set(SDL2_INCLUDE_DIR 
+		${CMAKE_BINARY_DIR}/libsdl/include
+		${CMAKE_BINARY_DIR}/libsdl/include-config-${SDL2_CONFIG_INCLUDE_SUFFIX})
+	set(SDL2_LIBRARY 
+		${CMAKE_BINARY_DIR}/libsdl/libSDL2${SDL2_LIB_SUFFIX}.a
+		"EGL"
+		"pthread"
+		"wayland-client")
+	add_library(SDL2::SDL2 ALIAS SDL2-static)
+else()
+	find_package(SDL2 REQUIRED)
+endif()
+
 find_package(SDL2_image REQUIRED)
 if(TARGET SDL2_image::SDL2_image)
 	add_library(SDL2::Image ALIAS SDL2_image::SDL2_image)

@@ -378,9 +378,29 @@ if(ENABLE_SINGLE_APP_BUILD)
 		target_link_libraries(${VCMICLIENT_NAME} PRIVATE vcmilauncher)
 	endif()
 endif()
+
 target_link_libraries(${VCMICLIENT_NAME} PRIVATE
-		${VCMI_LIB_TARGET} SDL2::SDL2 SDL2::Image SDL2::Mixer SDL2::TTF
-)
+			${VCMI_LIB_TARGET} 
+			SDL2::SDL2 
+			SDL2::Image 
+			SDL2::Mixer 
+			SDL2::TTF
+	)
+
+if(AURORAOS)
+	find_package(PkgConfig REQUIRED)
+	pkg_check_modules(AUDIORESOURCE REQUIRED audioresource)
+	pkg_check_modules(GLIB2 REQUIRED glib-2.0)
+
+	target_include_directories(${VCMICLIENT_NAME} PRIVATE
+			${GLIB2_INCLUDE_DIRS}
+			${AUDIORESOURCE_INCLUDE_DIRS}
+		)
+	target_link_libraries(${VCMICLIENT_NAME} PRIVATE 
+			${GLIB2_LIBRARIES}
+			${AUDIORESOURCE_LIBRARIES}
+		)
+endif()
 
 if(ffmpeg_LIBRARIES AND NOT AURORAOS)
 	target_link_libraries(${VCMICLIENT_NAME} PRIVATE
@@ -403,6 +423,8 @@ endif()
 if (AURORAOS)
 	message("Add rpath to ${VCMICLIENT_NAME}: ${LIB_DIR}")
 	set(CMAKE_INSTALL_RPATH ${LIB_DIR})
+	target_link_libraries(${VCMICLIENT_NAME} PUBLIC
+		wayland-client)
 endif()
 
 vcmi_set_output_dir(${VCMICLIENT_NAME} "")
