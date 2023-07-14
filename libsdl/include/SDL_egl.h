@@ -25,7 +25,7 @@
  *  This is a simple file to encapsulate the EGL API headers.
  */
 #if !defined(_MSC_VER) && !defined(__ANDROID__)
-
+#define WL_EGL_PLATFORM
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 

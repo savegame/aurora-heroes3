@@ -446,6 +446,11 @@ int main(int argc, char * argv[])
 	}
 #endif
 
+#ifdef VCMI_AURORAOS
+	SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
+	SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+#endif
+
 #ifndef VCMI_NO_THREADED_LOAD
 	//we can properly play intro only in the main thread, so we have to move loading to the separate thread
 	boost::thread loading(init);
@@ -770,6 +775,15 @@ static bool recreateWindow(int w, int h, int bpp, bool fullscreen, int displayIn
 			else //in windowed full-screen mode use desktop resolution
 				mainWindow = SDL_CreateWindow(NAME.c_str(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex), 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
 			SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+			logGlobal->info("[AuroraOS Debug] screenTexture size: %dx%d", renderWidth, renderHeight);
+#if defined(VCMI_AURORAOS)
+			{// get native device resolution
+				SDL_DisplayMode m;
+				SDL_GetDesktopDisplayMode(0, &m);
+				GH.nativeLandscape = m.w > m.h;
+				logGlobal->info("[AuroraOS Debug] Native device resolution is %dx%d (%s)", m.w, m.h, GH.nativeLandscape ? "Native Landscape" : "Native Portrait");
+			}
+#endif
 		}
 		else
 		{
@@ -833,7 +847,9 @@ static bool recreateWindow(int w, int h, int bpp, bool fullscreen, int displayIn
 
 	if(!(fullscreen && realFullscreen))
 	{
+#ifndef VCMI_AURORAOS
 		SDL_RenderSetLogicalSize(mainRenderer, renderWidth, renderHeight);
+#endif
 
 //following line is bugged not only on android, do not re-enable without checking
 //#ifndef VCMI_ANDROID
@@ -870,6 +886,23 @@ static bool recreateWindow(int w, int h, int bpp, bool fullscreen, int displayIn
 											SDL_TEXTUREACCESS_STREAMING,
 											renderWidth, renderHeight);
 
+#ifdef VCMI_AURORAOS
+	logGlobal->info("[AuroraOS Debug] screenTexture size: %dx%d", renderWidth, renderHeight);
+	{// get native device resolution
+		SDL_DisplayMode m;
+		SDL_GetDesktopDisplayMode(0, &m);
+		float wcoef, hcoef;
+		if (GH.nativeLandscape) {
+			wcoef = (float)m.w / (float)renderWidth;
+			hcoef = (float)m.h / (float)renderHeight;
+		} else {
+			wcoef = (float)m.h / (float)renderWidth;
+			hcoef = (float)m.w / (float)renderHeight;
+		}
+		GH.screenCoef = wcoef > hcoef ? hcoef : wcoef;
+		logGlobal->info("[AuroraOS Debug] Screen scale: %f", GH.screenCoef);
+	}
+#endif 
 	if(nullptr == screenTexture)
 	{
 		logGlobal->error("Unable to create screen texture");
@@ -895,7 +928,11 @@ static bool recreateWindow(int w, int h, int bpp, bool fullscreen, int displayIn
 	{
 		NotificationHandler::init(mainWindow);
 	}
-
+#ifdef VCMI_AURORAOS
+	// First set default orientation to Prtrait or Landscape, then check real orientation
+	GH.setScreenOrientation(GH.nativeLandscape ? SDL_ORIENTATION_PORTRAIT : SDL_ORIENTATION_LANDSCAPE, mainWindow);
+	GH.setScreenOrientation(SDL_GetDisplayOrientation(0), mainWindow);
+#endif
 	return true;
 }
 
@@ -1033,7 +1070,12 @@ static void handleEvent(SDL_Event & ev)
 			NotificationHandler::handleSdlEvent(ev);
 		}
 	}
-
+#ifdef VCMI_AURORAOS
+	else if (ev.type == SDL_DISPLAYEVENT && ev.display.event == SDL_DISPLAYEVENT_ORIENTATION)
+	{
+		GH.setScreenOrientation(ev.display.data1, mainWindow);
+	}
+#endif
 	//preprocessing
 	if(ev.type == SDL_MOUSEMOTION)
 	{

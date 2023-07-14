@@ -34,6 +34,12 @@
 #include <dispatch/dispatch.h>
 #endif
 
+#ifdef VCMI_AURORAOS
+#include <SDL_video.h>
+#include <SDL_syswm.h>
+#include <wayland-client-protocol.h>
+#endif
+
 #ifdef VCMI_IOS
 #include "ios/utils.h"
 #endif
@@ -199,6 +205,36 @@ void CGuiHandler::updateTime()
 	}
 }
 
+void CGuiHandler::convertMousePostition(int &x, int &y) 
+{
+	int w,h;
+	SDL_GetWindowSize(mainWindow, &w, &h);
+	float coef = 1.0 / screenCoef;
+	if (nativeLandscape) {
+		if (screenRotation == 0) {
+			x = x * coef;
+			y = y * coef;
+		} 
+		else if (screenRotation == 180) {
+			x = (w - x) * coef;
+			y = (h - y) * coef;
+		}
+	}
+	else 
+	{
+		Sint32 tmp = x;
+		if (screenRotation == 90) {
+			x = y * coef;
+			y = (w - tmp) * coef;
+		} 
+		else if (screenRotation == 270) {
+			x = (h - y) * coef;
+			y = tmp * coef;
+		}
+	}
+	x = margins.x > x ? 0 : (x - margins.x);
+}
+
 void CGuiHandler::handleEvents()
 {
 	//player interface may want special event handling
@@ -213,6 +249,9 @@ void CGuiHandler::handleEvents()
 
 		if (currentEvent.type == SDL_MOUSEMOTION)
 		{
+#ifdef VCMI_AURORAOS
+			convertMousePostition(currentEvent.motion.x, currentEvent.motion.y);
+#endif
 			cursorPosition = Point(currentEvent.motion.x, currentEvent.motion.y);
 			mouseButtonsMask = currentEvent.motion.state;
 		}
@@ -232,8 +271,12 @@ void CGuiHandler::handleEvents()
 void CGuiHandler::convertTouchToMouse(SDL_Event * current)
 {
 	int rLogicalWidth, rLogicalHeight;
-
+#ifdef VCMI_AURORAOS
+	rLogicalWidth = 1;
+	rLogicalHeight = 1;
+#else
 	SDL_RenderGetLogicalSize(mainRenderer, &rLogicalWidth, &rLogicalHeight);
+#endif
 
 	int adjustedMouseY = (int)(current->tfinger.y * rLogicalHeight);
 	int adjustedMouseX = (int)(current->tfinger.x * rLogicalWidth);
@@ -440,6 +483,11 @@ void CGuiHandler::handleCurrentEvent( SDL_Event & current )
 	}
 	else if(current.type == SDL_MOUSEBUTTONDOWN)
 	{
+#ifdef VCMI_AURORAOS
+		convertMousePostition(current.button.x, current.button.y);
+		cursorPosition.x = current.button.x;
+		cursorPosition.y = current.button.y;
+#endif
 		switch(current.button.button)
 		{
 		case SDL_BUTTON_LEFT:
@@ -525,17 +573,65 @@ void CGuiHandler::handleCurrentEvent( SDL_Event & current )
 	{
 		if(isPointerRelativeMode)
 		{
+#ifdef VCMI_AURORAOS
+			int w,h;
+	 		SDL_GetWindowSize(mainWindow, &w, &h);
+			fakeMoveCursor(current.tfinger.dx/w, current.tfinger.dy/h);
+#else
 			fakeMoveCursor(current.tfinger.dx, current.tfinger.dy);
+#endif
 		}
+#ifdef VCMI_AURORAOS
+		else
+		{ // Emulate mouse event 
+			int x, y, w, h;
+
+			SDL_Event event;
+			SDL_MouseMotionEvent sme = {SDL_MOUSEMOTION, 0, 0, 0, 0, 0, 0, 0, 0};
+
+			sme.state = SDL_GetMouseState(&x, &y);
+			SDL_GetWindowSize(mainWindow, &w, &h);
+
+			sme.x = current.tfinger.x;
+			sme.y = current.tfinger.y;
+
+			event.motion = sme;
+			SDL_PushEvent(&event);
+		}
+#endif
 	}
 	else if(current.type == SDL_FINGERDOWN)
 	{
 		auto fingerCount = SDL_GetNumTouchFingers(current.tfinger.touchId);
 
 		multifinger = fingerCount > 1;
-
+#ifdef VCMI_AURORAOS
+		if (fingerCount == 1) {
+			SDL_Event event;
+			SDL_MouseButtonEvent nev;
+			nev.type = SDL_MOUSEBUTTONDOWN;        /**< ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP */
+			// nev.timestamp = current.tfinger.timestamp;   /**< In milliseconds, populated using SDL_GetTicks() */
+			// nev.windowID = current.tfinger.windowID;    /**< The window with mouse focus, if any */
+			// nev.which = current.tfinger.touchId;       /**< The mouse instance id, or SDL_TOUCH_MOUSEID */
+			nev.button = SDL_BUTTON_LEFT;       /**< The mouse button index */
+			nev.state = SDL_PRESSED;        /**< ::SDL_PRESSED or ::SDL_RELEASED */
+			nev.clicks = 1;       /**< 1 for single-click, 2 for double-click, etc. */
+			// nev.padding1 = 0 ;
+			nev.x = current.tfinger.x;           /**< X coordinate, relative to window */
+			nev.y = current.tfinger.y;           /**< Y coordinate, relative to window */
+			event.button = nev;
+			SDL_PushEvent(&event);
+		}
+#endif
 		if(isPointerRelativeMode)
 		{
+#ifdef VCMI_AURORAOS
+			int w,h;
+			SDL_GetWindowSize(mainWindow, &w, &h);
+			current.tfinger.x = current.tfinger.x/w;
+			current.tfinger.x = current.tfinger.x/h;
+#endif
+
 			if(current.tfinger.x > 0.5)
 			{
 				bool isRightClick = current.tfinger.y < 0.5;
@@ -558,8 +654,32 @@ void CGuiHandler::handleCurrentEvent( SDL_Event & current )
 		auto fingerCount = SDL_GetNumTouchFingers(current.tfinger.touchId);
 #endif //VCMI_IOS
 
+#ifdef VCMI_AURORAOS
+		if (fingerCount == 0) {
+			SDL_Event event;
+			SDL_MouseButtonEvent nev;
+			nev.type = SDL_MOUSEBUTTONUP;        /**< ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP */
+			// nev.timestamp = current.tfinger.timestamp;   /**< In milliseconds, populated using SDL_GetTicks() */
+			// nev.windowID = current.tfinger.windowID;    /**< The window with mouse focus, if any */
+			// nev.which = current.tfinger.touchId;       /**< The mouse instance id, or SDL_TOUCH_MOUSEID */
+			nev.button = SDL_BUTTON_LEFT;       /**< The mouse button index */
+			nev.state = SDL_RELEASED;        /**< ::SDL_PRESSED or ::SDL_RELEASED */
+			nev.clicks = 1;       /**< 1 for single-click, 2 for double-click, etc. */
+// 			nev.padding1 = 0 ;
+			nev.x = current.tfinger.x;           /**< X coordinate, relative to window */
+			nev.y = current.tfinger.y;           /**< Y coordinate, relative to window */
+			event.button = nev;
+			SDL_PushEvent(&event);
+		}
+#endif
 		if(isPointerRelativeMode)
 		{
+#ifdef VCMI_AURORAOS
+			int w,h;
+			SDL_GetWindowSize(mainWindow, &w, &h);
+			current.tfinger.x = current.tfinger.x/w;
+			current.tfinger.x = current.tfinger.x/h;
+#endif
 			if(current.tfinger.x > 0.5)
 			{
 				bool isRightClick = current.tfinger.y < 0.5;
@@ -577,6 +697,16 @@ void CGuiHandler::handleCurrentEvent( SDL_Event & current )
 		}
 #endif //VCMI_IOS
 	}
+#ifdef VCMI_AURORAOS
+	else if(current.type == SDL_MULTIGESTURE) 
+	{
+		if (current.mgesture.numFingers == 2) {
+			screenScale  = current.mgesture.dDist;
+			pinPoint.x = current.mgesture.x;
+			pinPoint.y = current.mgesture.y;
+		}
+	}
+#endif
 } //event end
 
 void CGuiHandler::handleMouseButtonClick(CIntObjectList & interestedObjs, MouseButton btn, bool isPressed)
@@ -653,6 +783,56 @@ void CGuiHandler::handleMoveInterested(const SDL_MouseMotionEvent & motion)
 	}
 }
 
+void CGuiHandler::setScreenOrientation(int orientation, void *sdlWindow) {
+	// screenOrientation = orientation;
+	struct SDL_SysWMinfo wmInfo;
+	SDL_VERSION(&wmInfo.version);
+	if (SDL_GetWindowWMInfo((SDL_Window*)sdlWindow, &wmInfo)) 
+	{
+		int w,h;
+		SDL_GetWindowSize(mainWindow, &w, &h);
+
+		if (nativeLandscape) 
+		{
+			// NativeLandscape
+			margins.x = ((float)w / screenCoef - (float)screen->w) * 0.5;
+			margins.y = 0;
+
+			if (orientation == SDL_ORIENTATION_PORTRAIT) 
+			{
+				screenRotation = 0;
+				wl_surface_set_buffer_transform(wmInfo.info.wl.surface, WL_OUTPUT_TRANSFORM_NORMAL);
+				logGlobal->info("[AuroraOS Debug] screenOrientation SDL_ORIENTATION_PORTRAIT");
+			}
+			else if (orientation == SDL_ORIENTATION_PORTRAIT_FLIPPED)
+			{
+				screenRotation = 180;
+				wl_surface_set_buffer_transform(wmInfo.info.wl.surface, WL_OUTPUT_TRANSFORM_180);
+				logGlobal->info("[AuroraOS Debug] screenOrientation SDL_ORIENTATION_PORTRAIT_FLIPPED");
+			}
+		} 
+		else 
+		{
+			margins.x = ((float)h / screenCoef - (float)screen->w) * 0.5;
+			margins.y = 0;
+
+			if (orientation == SDL_ORIENTATION_LANDSCAPE) 
+			{
+				screenRotation = 90;
+				wl_surface_set_buffer_transform(wmInfo.info.wl.surface, WL_OUTPUT_TRANSFORM_270);
+				logGlobal->info("[AuroraOS Debug] screenOrientation SDL_ORIENTATION_LANDSCAPE");
+			}
+			else if (orientation == SDL_ORIENTATION_LANDSCAPE_FLIPPED)
+			{
+				screenRotation = 270;
+				wl_surface_set_buffer_transform(wmInfo.info.wl.surface, WL_OUTPUT_TRANSFORM_90);
+				logGlobal->info("[AuroraOS Debug] screenOrientation SDL_ORIENTATION_LANDSCAPE_FLIPPED");
+			}
+		}
+		logGlobal->info("[AuroraOS Debug] screenMargins %d x %d", margins.x, margins.y);
+	}
+}
+
 void CGuiHandler::renderFrame()
 {
 
@@ -680,8 +860,24 @@ void CGuiHandler::renderFrame()
 		SDL_UpdateTexture(screenTexture, nullptr, screen->pixels, screen->pitch);
 
 		SDL_RenderClear(mainRenderer);
-		SDL_RenderCopy(mainRenderer, screenTexture, nullptr, nullptr);
+#ifdef VCMI_AURORAOS
+		SDL_DisplayMode m;
+		SDL_GetDesktopDisplayMode(0, &m);
+		SDL_FRect dstr;
+		// TODO calculate dst rect when orientation changed (and use it when convert mouse position)
+		dstr = {
+			(m.w - screen->w * screenCoef) * 0.5,
+			(m.h - screen->h * screenCoef) * 0.5,
+			screenCoef * screen->w,
+			screenCoef * screen->h
+		};
 
+		SDL_RenderCopyExF(mainRenderer, screenTexture, nullptr, &dstr, screenRotation, nullptr, SDL_FLIP_NONE);
+		CCS->curh->setCursorScale(screenCoef);
+		CCS->curh->setCursorRotation(screenRotation);
+#else
+		SDL_RenderCopy(mainRenderer, screenTexture, nullptr, nullptr);
+#endif
 		CCS->curh->render();
 
 		SDL_RenderPresent(mainRenderer);

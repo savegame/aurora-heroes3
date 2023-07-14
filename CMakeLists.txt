@@ -49,8 +49,6 @@ if(ANDROID)
 endif()
 
 if(AURORAOS)
-	include(FindPkgConfig)
-	
 	if(NOT AURORAOS_APPNAME)
 		set(AURORAOS_APPNAME ru.sashikknox.hmm3)
 	endif()
@@ -90,6 +88,7 @@ if(AURORAOS)
 	set(WAYLAND_LIBDECOR OFF)
 	set(SDL_OSS OFF)
 	add_subdirectory(${CMAKE_SOURCE_DIR}/libsdl)
+	add_library(SDL2::SDL2 ALIAS SDL2-static)
 endif()
 
 option(ENABLE_ERM "Enable compilation of ERM scripting module" OFF)
@@ -463,7 +462,6 @@ if(AURORAOS)
 		"EGL"
 		"pthread"
 		"wayland-client")
-	add_library(SDL2::SDL2 ALIAS SDL2-static)
 else()
 	find_package(SDL2 REQUIRED)
 endif()

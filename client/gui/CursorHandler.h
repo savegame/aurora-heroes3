@@ -176,6 +176,10 @@ public:
 	void hide();
 	void show();
 
+#ifdef VCMI_AURORAOS
+	void setCursorRotation(double angle);
+	void setCursorScale(double scale);
+#endif
 	/// change cursor's positions to (x, y)
 	void cursorMove(const int & x, const int & y);
 };

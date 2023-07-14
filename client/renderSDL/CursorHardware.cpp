@@ -34,6 +34,13 @@ CursorHardware::~CursorHardware()
 		SDL_FreeCursor(cursor);
 }
 
+#ifdef VCMI_AURORAOS
+void CursorHardware::setCursorRotation( double angle ) 
+{
+	(void)angle;
+}
+#endif
+
 void CursorHardware::setVisible(bool on)
 {
 #ifdef VCMI_APPLE

@@ -29,6 +29,10 @@ class CursorSoftware : public ICursor
 	Point pivot;
 	bool needUpdate;
 	bool visible;
+#ifdef VCMI_AURORAOS
+	double rotation = 0;
+	double scale = 1.0;
+#endif
 
 	void createTexture(const Point & dimensions);
 	void updateTexture();
@@ -38,6 +42,10 @@ public:
 
 	void setImage(std::shared_ptr<IImage> image, const Point & pivotOffset) override;
 	void setCursorPosition( const Point & newPos ) override;
+#ifdef VCMI_AURORAOS
+	void setCursorRotation( double angle ) override;
+	void setCursorScale( double scale ) override;
+#endif
 	void render() override;
 	void setVisible( bool on) override;
 };

@@ -32,5 +32,8 @@ public:
 	void setCursorPosition( const Point & newPos ) override;
 	void render() override;
 	void setVisible( bool on) override;
+#ifdef VCMI_AURORAOS
+	void setCursorRotation( double angle ) override;
+#endif
 };
 

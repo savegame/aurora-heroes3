@@ -5,17 +5,6 @@ Name:				ru.sashikknox.hmm3
 Name:				vcmi
 %endif
 
-# %define __provides_exclude_from ^(%{_datadir}/%{name}/lib/.*\\.so.*|%{_datadir}/%{name}/lib/AI/.*\\.so.*)$
-%define __requires_exclude ^libboost_.*\\.so.*|libicu.*|libminizip\\.so|libvcmi\\.so$
-
-Summary:			VCMI is an open-source project aiming to reimplement HoMM3 game engine, giving it new and extended possibilities.
-Version:			0.99
-Release:			1%{?dist}
-License:			GPLv2+
-Group:				Amusements/Games
-
-%define _unpackaged_files_terminate_build 0
-
 %ifarch armv7hl
 %global build_dir build_armv7hl
 %else 
@@ -25,6 +14,19 @@ Group:				Amusements/Games
         %global build_dir build_x86
     %endif
 %endif
+
+%define __provides_exclude_from ^(%{_datadir}/%{name}/lib/.*\\.so.*|%{_datadir}/%{name}/lib/AI/.*\\.so.*)$
+%define __requires_exclude ^libboost_.*\\.so.*|libicu.*|libminizip\\.so.*|libvcmi\\.so.*|libwayland-client\\.so.*|libglib-2\\.0.*|ld-linux.*$
+
+Summary:			VCMI is an open-source project aiming to reimplement HoMM3 game engine, giving it new and extended possibilities.
+Version:			0.99
+Release:			1%{?dist}
+License:			GPLv2+
+Group:				Amusements/Games
+
+%define _unpackaged_files_terminate_build 0
+
+
 
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:

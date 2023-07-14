@@ -267,6 +267,18 @@ void CursorHandler::updateSpellcastCursor()
 	changeGraphic(Cursor::Type::SPELLBOOK, newFrame);
 }
 
+#ifdef VCMI_AURORAOS
+void CursorHandler::setCursorRotation(double angle) 
+{
+	cursor->setCursorRotation(angle);
+}
+
+void CursorHandler::setCursorScale(double scale) 
+{
+	cursor->setCursorScale(scale);
+}
+#endif
+
 void CursorHandler::render()
 {
 	if(!showing)

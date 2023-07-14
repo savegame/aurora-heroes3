@@ -24,5 +24,9 @@ public:
 	virtual void setCursorPosition( const Point & newPos ) = 0;
 	virtual void render() = 0;
 	virtual void setVisible( bool on) = 0;
+#ifdef VCMI_AURORAOS
+	virtual void setCursorRotation( double angle ) = 0;
+	virtual void setCursorScale( double scale ) {};
+#endif
 };
 

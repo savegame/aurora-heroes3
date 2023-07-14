@@ -19,6 +19,21 @@
 #include <SDL_render.h>
 #include <SDL_events.h>
 
+#ifdef VCMI_AURORAOS
+void CursorSoftware::setCursorRotation( double angle ) 
+{
+	rotation = angle;
+}
+
+void CursorSoftware::setCursorScale( double value ) 
+{
+	if (scale < 1.0) 
+		scale = 1.0;
+	else
+		scale = value;
+}
+#endif
+
 void CursorSoftware::render()
 {
 	//texture must be updated in the main (renderer) thread, but changes to cursor type may come from other threads
@@ -32,8 +47,25 @@ void CursorSoftware::render()
 	destRect.y = renderPos.y;
 	destRect.w = 40;
 	destRect.h = 40;
-
+#ifdef VCMI_AURORAOS
+	if (rotation == 90) {
+		SDL_DisplayMode m;
+		SDL_GetDesktopDisplayMode(0, &m);
+		destRect.x = renderPos.x;
+		destRect.y = renderPos.y;
+	} else if (rotation == 270) {
+		SDL_DisplayMode m;
+		SDL_GetDesktopDisplayMode(0, &m);
+		destRect.x = renderPos.x;
+		destRect.y = renderPos.y;
+	}
+	destRect.w *= scale;
+	destRect.h *= scale;
+	SDL_Point center = {0,0};
+	SDL_RenderCopyEx(mainRenderer, cursorTexture, nullptr, &destRect, rotation, &center, SDL_FLIP_NONE);
+#else
 	SDL_RenderCopy(mainRenderer, cursorTexture, nullptr, &destRect);
+#endif
 }
 
 void CursorSoftware::createTexture(const Point & dimensions)

@@ -147,6 +147,18 @@ public:
 	bool captureChildren; //all newly created objects will get their parents from stack and will be added to parents children list
 	std::list<CIntObject *> createdObj; //stack of objs being created
 
+#ifdef VCMI_AURORAOS
+	double screenRotation;
+	float  screenCoef;
+	double screenScale = 1.0;
+	Point pinPoint;
+	Point margins;
+
+	bool nativeLandscape = false;
+	void setScreenOrientation(int orientation, void *sdlWindow);
+	void convertMousePostition(int &x, int &y);
+#endif
+
 	CGuiHandler();
 	~CGuiHandler();
 
