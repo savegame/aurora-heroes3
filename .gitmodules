@@ -11,4 +11,4 @@
 	url = git@github.com:opencv/opencv.git
 [submodule "libtbb"]
 	path = libtbb
-	url = git@github.com:oneapi-src/oneTBB.git
+	url = https://github.com/uxlfoundation/oneTBB
