@@ -8,9 +8,10 @@ Exec=ru.sashikknox.hmm3
 Categories=Game;StrategyGame;
 Version=1.0
 Keywords=heroes;homm3;
-Name=VCMI Client
+Name=VCMI Heroes 3
+Name[ru]=VCMI Герои 3
 
-[X-Sailjail]
+[X-Application]
 Permissions=UserDirs;RemovableMedia;Internet;Audio
 OrganizationName=ru.sashikknox
 ApplicationName=hmm3
