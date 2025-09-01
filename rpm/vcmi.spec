@@ -1,9 +1,4 @@
-
-%if "0%{?auroraos}" != "0"
 Name:				ru.sashikknox.hmm3
-%else
-Name:				vcmi
-%endif
 
 %ifarch armv7hl
 %global build_dir build_armv7hl
@@ -19,8 +14,8 @@ Name:				vcmi
 %define __requires_exclude ^libboost_.*\\.so.*|libicu.*|libminizip\\.so.*|libvcmi\\.so.*|libwayland-client\\.so.*|libglib-2\\.0.*|ld-linux.*$
 
 Summary:			VCMI is an open-source project aiming to reimplement HoMM3 game engine, giving it new and extended possibilities.
-Version:			0.99
-Release:			1%{?dist}
+Version:			1.2.1
+Release:			3
 License:			GPLv2+
 Group:				Amusements/Games
 
@@ -85,44 +80,10 @@ cd %{build_dir}
 %{_datadir}/%{name}/*
 %{_datadir}/applications/*
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%attr(755,root,root) %{_datadir}/%{name}/lib
+%attr(755,root,root) %{_datadir}/%{name}/lib/AI
 
 %changelog
-
-* Tue Nov 01 2016 VCMI - 0.99-1
-- New upstream release
-
-* Wed Apr 01 2015 VCMI - 0.98-1
-- New upstream release
-
-* Sun Nov 02 2014 VCMI - 0.97-1
-- New upstream release
-
-* Tue Jul 01 2014 VCMI - 0.96-1
-- New upstream release
-
-* Sat Mar 01 2014 VCMI - 0.95-1
-- New upstream release
-
-* Wed Oct 02 2013 VCMI - 0.94-1
-- New upstream release
-
-* Sun Jun 02 2013 VCMI - 0.93-1
-- New upstream release
-
-* Wed Mar 06 2013 VCMI - 0.92-1
-- New upstream release
-
-* Fri Feb 01 2013 VCMI - 0.91-2
-- New upstream release
-
-* Wed Jan 30 2013 VCMI - 0.91-1
-- Development release
-
-* Sun Oct 21 2012 VCMI - 0.90-2
-- Second release of 0.90, Fixed battles crash
-
-* Sat Oct 06 2012 VCMI - 0.90-1
-- New upstream release
 
 * Fri Jun 08 2012 VCMI - 0.89-1
 - Initial version
