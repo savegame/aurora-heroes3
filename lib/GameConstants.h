@@ -9,6 +9,7 @@
  */
 #pragma once
 
+#include <optional>
 #include "ConstTransitivePtr.h"
 
 VCMI_LIB_NAMESPACE_BEGIN
