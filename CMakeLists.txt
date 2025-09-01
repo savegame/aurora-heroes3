@@ -65,6 +65,11 @@ if(AURORAOS)
 	set(FORCE_BUNDLED_MINIZIP ON)
 	set(ENABLE_TEST OFF)
 	# set(ENABLE_MONOLITHIC_INSTALL ON)
+
+	# workaround compile error in GCC 12 or later, issue https://github.com/oneapi-src/oneTBB/issues/843
+	if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 12)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=stringop-overflow")
+	endif()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS_ORGNAME=\\\"ru.sashikknox\\\"")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVCMI_AURORAOS_APPNAME=\\\"hmm3\\\"")
