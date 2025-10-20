@@ -9,6 +9,7 @@
  */
 #pragma once
 
+#include <optional>
 #include "BonusEnum.h"
 
 VCMI_LIB_NAMESPACE_BEGIN

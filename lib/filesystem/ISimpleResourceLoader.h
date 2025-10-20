@@ -8,6 +8,7 @@
  *
  */
 #pragma once
+#include <optional>
 
 VCMI_LIB_NAMESPACE_BEGIN
 

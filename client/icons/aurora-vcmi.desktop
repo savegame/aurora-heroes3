@@ -10,7 +10,7 @@ Version=1.0
 Keywords=heroes;homm3;
 Name=VCMI Client
 
-[X-Sailjail]
+[X-Application]
 Permissions=UserDirs;RemovableMedia;Internet;Audio
 OrganizationName=ru.sashikknox
 ApplicationName=hmm3
